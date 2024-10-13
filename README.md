@@ -43,8 +43,9 @@ They can be downloaded here:
 - **ASCAD v1-R**: https://github.com/ANSSI-FR/ASCAD/blob/master/ATMEGA_AES_v1/ATM_AES_v1_variable_key
 - **SCANTRU**: https://github.com/ANSSI-FR/scantru
 
-We developed our model in Python 3.11.8, using Tensorflow [AAB+15] and Keras [C+15] libraries. 
+Moreover, we draw users' attention to the fact that, to ensure proper attack execution, lines 133 and 139 in *attack.py* file must also be adapted to the targeted dataset.
 
+We developed our model in Python 3.11.8, using Tensorflow [AAB+15] and Keras [C+15] libraries. 
 
 ### Implementation tricks
 
