@@ -48,8 +48,8 @@ We developed our model in Python 3.11.8, using Tensorflow [AAB+15] and Keras [C+
 
 ### Implementation tricks
 
-We point out that when implementing cVAE-OSM, a particular attention had to be paid to initialization of encoder weights characterizing $\boldsymbol{\Sigma}_\phi$. 
-Indeed, since these weights represent estimated variances at each sample of traces, we initialize all weights characterizing $\boldsymbol{\Sigma}_\phi$ to 1 and add a custom constraint that forces weights during cVAE-OSM training to be always positive.
+We point out that when implementing cVAE-OSM, a particular attention had to be paid to initialization of encoder weights characterizing $\boldsymbol{\Sigma_\phi}$. 
+Indeed, since these weights represent estimated variances at each sample of traces, we initialize all weights characterizing $\boldsymbol{\Sigma_\phi}$ to 1 and add a custom constraint that forces weights during cVAE-OSM training to be always positive.
 It is important to take this specificity into account during implementation to ensure proper autoencoder working. 
 We thus consider this type of initialization and update for $\boldsymbol{\Sigma_\phi}$. 
 We do not investigate impact of initialization and weights constraints on cVAE-OSM, especially on its weights convergence. 
@@ -57,8 +57,8 @@ This investigation should be part of a future work.
 
 Since we consider that the basis used to describe the deterministic part $\Psi$ includes a bias term and that the optimal dimensionality reduction does not involve it (see Theorem 2), we implement our model in such a way as to remove biases included in dense layers. 
 
-Finally, as a relationship between the variance $\boldsymbol{\sigma^2}_\phi$ and mean $\boldsymbol{\mu}_\phi$ of monovariate traces $\mathbf{\tilde{T}}$ is defined *i.e.* $\boldsymbol{\mu}_\phi$ (resp. $\boldsymbol{\sigma^2}_\phi$) must converge towards $D$ (resp. $2D$) (see Section 3.3), we decide to create a custom dense layer for $\boldsymbol{\sigma^2}_\phi$ computation.
-It consists in estimating the weights related to $\boldsymbol{\mu}_\phi$ and then, use those estimations to compute $\boldsymbol{\sigma^2}_\phi$ instead of re-estimating them.
+Finally, as a relationship between the variance $\boldsymbol{\sigma^2_\phi}$ and mean $\boldsymbol{\mu_\phi}$ of monovariate traces $\mathbf{\tilde{T}}$ is defined *i.e.* $\boldsymbol{\mu_\phi}$ (resp. $\boldsymbol{\sigma^2_\phi}$) must converge towards $D$ (resp. $2D$) (see Section 3.3), we decide to create a custom dense layer for $\boldsymbol{\sigma^2_\phi}$ computation.
+It consists in estimating the weights related to $\boldsymbol{\mu_\phi}$ and then, use those estimations to compute $\boldsymbol{\sigma^2_\phi}$ instead of re-estimating them.
 Considering $D$ as the dimension of traces, this trick therefore reduces the number of trainable parameters by $D$ compared with the expected theoretical complexity defined in Section 3.3.
 
 ```TODO```
@@ -106,7 +106,7 @@ As previously explained, these notebooks allow users to re-execute simulations a
 - *Experiment_4.ipynb* includes all experiences depicted in Section 5.1.5, about the practical issues. 
 - *poetry.lock*, *pyproject.toml* and *requirements.txt* files are described in Section <a href="#getting-started">Getting started</a>.
 
-In addition, we provide a package called $\texttt{cvae\_osm\_utils}$ that contains modules necessary for notebooks running.
+In addition, we provide a package called $`\texttt{cvae\_osm\_utils}`$ that contains modules necessary for notebooks running.
 
 - *attack.py* implements the profiled attack strategy introduced in Section 4.2.
 - *cVAE_OSM_model.py* implements cVAE-OSM model.
@@ -114,7 +114,7 @@ In addition, we provide a package called $\texttt{cvae\_osm\_utils}$ that contai
 - *experiments_tools.py* includes all functions necessary to reproduce our experiments on simulations. 
 - *generate_traces.py* implements a trace generation function.
 - *Kernel_Weights_Constraints.py* implements custom weights constraint explained in <a href="#implementation-tricks">Implementation tricks</a> section.
-- *\_\_init\_\_.py* empty file required to create our $\texttt{cvae\_osm\_utils}$ package.
+- *\_\_init\_\_.py* empty file required to create our $`\texttt{cvae\_osm\_utils}`$ package.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
