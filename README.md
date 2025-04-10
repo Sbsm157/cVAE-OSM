@@ -2,7 +2,7 @@
 
 <a id="readme-top"></a>
 
-This Git repository is associated with the article ```TODO``` available on ```TODO``` .
+This Git repository is associated with the article *Optimal Dimensionality Reduction using Conditional Variational AutoEncoder* available on ```TODO``` .
 
 <!-- Table of contents -->
 <details>
