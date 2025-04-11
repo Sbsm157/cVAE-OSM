@@ -1,4 +1,4 @@
-# README
+# Optimal Dimensionality Reduction using Conditional Variational AutoEncoder
 
 <a id="readme-top"></a>
 
