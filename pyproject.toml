@@ -1,8 +1,8 @@
 [tool.poetry]
 version = "0.1.0"
 description = "Tooling for replicating experiments from the cVAE-OSM paper."
-authors = ["Your Name <you@example.com>"]
-license = "todo"
+authors = ["sana.boussam@inria.fr"]
+license = "LICENSE"
 readme = "README.md"
 package-mode = false
 
