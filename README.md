@@ -170,6 +170,7 @@ Then activate the environment and install the dependencies:
 The packages required for running the notebooks are:
   - tensorflow,
   - scipy,
+  - numpy,
   - scikit-learn,
   - matplotlib,
   - ipykernel.
@@ -178,7 +179,7 @@ If none of the previous method is suited to your particular situation you can tr
 
 For convenience, we provide the pip command below.
 
-    pip install tensorflow scipy scikit-learn matplotlib ipykernel
+    pip install tensorflow scipy numpy scikit-learn matplotlib ipykernel
 
 > Warning! The reproducibility of the results is then not guaranteed.
 
