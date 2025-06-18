@@ -2,7 +2,7 @@
 
 <a id="readme-top"></a>
 
-This Git repository is associated with the article *Optimal Dimensionality Reduction using Conditional Variational AutoEncoder* available on ```TODO``` .
+This Git repository is associated with the article *Optimal Dimensionality Reduction using Conditional Variational AutoEncoder* available on [TCHES website](https://tches.iacr.org/index.php/TCHES/article/view/12214) .
 
 <!-- Table of contents -->
 <details>
@@ -60,9 +60,8 @@ Since we consider that the basis used to describe the deterministic part $\Psi$ 
 
 Finally, as a relationship between the variance $\boldsymbol{\sigma^2_\phi}$ and mean $\boldsymbol{\mu_\phi}$ of monovariate traces $\mathbf{\tilde{T}}$ is defined *i.e.* $\boldsymbol{\mu_\phi}$ (resp. $\boldsymbol{\sigma^2_\phi}$) must converge towards $D$ (resp. $2D$) (see Section 3.3), we decide to create a custom dense layer for $\boldsymbol{\sigma^2_\phi}$ computation.
 It consists in estimating the weights related to $\boldsymbol{\mu_\phi}$ and then, use those estimations to compute $\boldsymbol{\sigma^2_\phi}$ instead of re-estimating them.
-Considering $D$ as the dimension of traces, this trick therefore reduces the number of trainable parameters by $D$ compared with the expected theoretical complexity defined in Section 3.3.
-
-```TODO```
+Considering $D$ as the dimension of traces, this trick therefore reduces the number of trainable parameters by $D$ compared with the expected theoretical complexity defined in Section 3.3 (paragraph Neural network complexity).
+Hence, this allows us to achieve the final architecture complexity presented in Proposition 1.
 
 <a id="cvae-picture"></a>
 <p align="center">
@@ -189,7 +188,18 @@ For convenience, we provide the pip command below.
 
 If you use our code, model or wish to refer to our results, please use the following BibTex entry:
 ```
-TODO
+@article{Boussam_Carbone_Gérard_Renault_Zaid_2025,
+title={Optimal Dimensionality Reduction using Conditional Variational AutoEncoder},
+volume={2025},
+url={https://tches.iacr.org/index.php/TCHES/article/view/12214},
+DOI={10.46586/tches.v2025.i3.164-211},
+abstractNote={The benefits of using Deep Learning techniques to enhance side-channel attacks performances have been demonstrated over recent years. Most of the work carried out since then focuses on discriminative models. However, one of their major limitations is the lack of theoretical results. Indeed, this lack of theoretical results, especially concerning the choice of neural network architecture to consider or the loss to prioritize to build an optimal model, can be problematic for both attackers and evaluators. Recently, Zaid et al. addressed this problem by proposing a generative model that bridges conventional profiled attacks and deep learning techniques, thus providing a model that is both explicable and interpretable. Nevertheless the proposed model has several limitations. Indeed, the architecture is too complex, higher-order attacks cannot be mounted and desynchronization is not handled by this model. In this paper, we address the first limitation namely the architecture complexity, as without a simpler model, the other limitations cannot be treated properly. To do so, we propose a new generative model that relies on solid theoretical results. This model is based on conditional variational autoencoder and converges towards the optimal statistical model i.e. it performs an optimal attack. By building on and extending the state-of-the-art theoretical works on dimensionality reduction, we integrate into this neural network an optimal dimensionality reduction i.e. a dimensionality reduction that is achieved without any loss of information. This results in a gain of O(D), with D the dimension of traces, compared to Zaid et al. neural network in terms of architecture complexity, while at the same time enhancing the explainability and interpretability. In addition, we propose a new attack strategy based on our neural network, which reduces the attack complexity of generative models from O(N) to O(1), with N the number of generated traces. We validate all our theoretical results experimentally using extensive simulations and various publicly available datasets covering symmetric, asymmetric pre and post-quantum cryptography implementations.},
+number={3},
+journal={IACR Transactions on Cryptographic Hardware and Embedded Systems},
+author={Boussam, Sana and Carbone, Mathieu and Gérard, Benoît and Renault, Guénaël and Zaid, Gabriel},
+year={2025},
+month={Jun.},
+pages={164–211} }
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
