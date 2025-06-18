@@ -2,7 +2,7 @@
 
 <a id="readme-top"></a>
 
-This Git repository is associated with the article *Optimal Dimensionality Reduction using Conditional Variational AutoEncoder* available on [TCHES website](https://tches.iacr.org/index.php/TCHES/article/view/12214) .
+This Git repository is associated with the article *Optimal Dimensionality Reduction using Conditional Variational AutoEncoder* available on [TCHES website](https://tches.iacr.org/index.php/TCHES/article/view/12214).
 
 <!-- Table of contents -->
 <details>
