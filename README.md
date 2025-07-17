@@ -45,21 +45,21 @@ They can be downloaded here:
 
 Moreover, we draw users' attention to the fact that, to ensure proper attack execution, lines 133 and 139 in *attack.py* file must also be adapted to the targeted dataset.
 
-We developed our model in Python 3.11.8, using Tensorflow [AAB+15] and Keras [C+15] libraries. 
+We developed our model in Python **3.11.8**, using Tensorflow [AAB+15] and Keras [C+15] libraries. 
 
 ### Implementation tricks
 
-We point out that when implementing cVAE-OSM, a particular attention had to be paid to initialization of encoder weights characterizing $\boldsymbol{\Sigma_\phi}$. 
-Indeed, since these weights represent estimated variances at each sample of traces, we initialize all weights characterizing $\boldsymbol{\Sigma_\phi}$ to 1 and add a custom constraint that forces weights during cVAE-OSM training to be always positive.
+We point out that when implementing cVAE-OSM, a particular attention had to be paid to initialization of encoder weights characterizing $\Sigma_\phi$. 
+Indeed, since these weights represent estimated variances at each sample of traces, we initialize all weights characterizing $\Sigma_\phi$ to 1 and add a custom constraint that forces weights during cVAE-OSM training to be always positive.
 It is important to take this specificity into account during implementation to ensure proper autoencoder working. 
-We thus consider this type of initialization and update for $\boldsymbol{\Sigma_\phi}$. 
+We thus consider this type of initialization and update for $\Sigma_\phi$. 
 We do not investigate impact of initialization and weights constraints on cVAE-OSM, especially on its weights convergence. 
 This investigation should be part of a future work. 
 
 Since we consider that the basis used to describe the deterministic part $\Psi$ includes a bias term and that the optimal dimensionality reduction does not involve it (see Theorem 2), we implement our model in such a way as to remove biases included in dense layers. 
 
-Finally, as a relationship between the variance $\boldsymbol{\sigma^2_\phi}$ and mean $\boldsymbol{\mu_\phi}$ of monovariate traces $\mathbf{\tilde{T}}$ is defined *i.e.* $\boldsymbol{\mu_\phi}$ (resp. $\boldsymbol{\sigma^2_\phi}$) must converge towards $D$ (resp. $2D$) (see Section 3.3), we decide to create a custom dense layer for $\boldsymbol{\sigma^2_\phi}$ computation.
-It consists in estimating the weights related to $\boldsymbol{\mu_\phi}$ and then, use those estimations to compute $\boldsymbol{\sigma^2_\phi}$ instead of re-estimating them.
+Finally, as a relationship between the variance $\sigma^2_\phi$ and mean $\mu_\phi$ of monovariate traces $\mathbf{\tilde{T}}$ is defined *i.e.* $\mu_\phi$ (resp. $\sigma^2_\phi$) must converge towards $D$ (resp. $2D$) (see Section 3.3), we decide to create a custom dense layer for $\sigma^2_\phi$ computation.
+It consists in estimating the weights related to $\mu_\phi$ and then, use those estimations to compute $\sigma^2_\phi$ instead of re-estimating them.
 Considering $D$ as the dimension of traces, this trick therefore reduces the number of trainable parameters by $D$ compared with the expected theoretical complexity defined in Section 3.3 (paragraph Neural network complexity).
 Hence, this allows us to achieve the final architecture complexity presented in Proposition 1.
 
