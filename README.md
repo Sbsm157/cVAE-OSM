@@ -46,6 +46,7 @@ They can be downloaded here:
 Moreover, we draw users' attention to the fact that, to ensure proper attack execution, lines 133 and 139 in *attack.py* file must also be adapted to the targeted dataset.
 
 We developed our model in Python **3.11.8**, using Tensorflow [AAB+15] and Keras [C+15] libraries. 
+We recommand to use Python **3.11** versions.
 
 ### Implementation tricks
 
