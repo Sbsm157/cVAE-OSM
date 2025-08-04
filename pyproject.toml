@@ -1,0 +1,22 @@
+[tool.poetry]
+version = "0.1.0"
+description = "Tooling for replicating experiments from the cVAE-OSM paper."
+authors = ["sana.boussam@inria.fr"]
+license = "LICENSE"
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.10"
+numpy = "^1.26.4"
+matplotlib = ">=3.9.2"
+scipy = "^1.13.1"
+keras = "^2.15.0"
+scikit-learn = "^1.1.3"
+tensorflow = "^2.15.0"
+ipykernel = ">=6.29.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
