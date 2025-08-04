@@ -133,8 +133,10 @@ In this later case there is a high probability of not being able to reproduce th
 To use the solution based on Poetry it must be installed following the [install instructions](https://python-poetry.org/docs/#installation).
 
 ### Installation
+We list here the different setup techniques ordered by decreasing reproducibility. We recommend to test the first one then switch to the next in case of failure and so on.
 
-#### Using Poetry
+<a id="install-1"></a>
+#### 1. Using Poetry with Provided `poetry.lock`
 
 From the git root directory (where this readme file is), run
 
@@ -142,21 +144,75 @@ From the git root directory (where this readme file is), run
     
 It will use the `poetry.lock` file to replicate the environment used for the paper.
 
-> **Troubleshooting.**
->
-> In case of failure, just remove this `poetry.lock` file, the resolution will be made by poetry based on information inside the `pyproject.toml`.
->
-> If it still does not work, then move to the next setup option.
-
 If the installation succeeded, you can now launch the virtual environment using the command:
 
     poetry shell
+  
+or
+
+    poetry env activate
+  
+depending on the poetry version used.
 
 Note that you can alternatively source the `activate` file from the environment.
 
-#### Using `requirements.txt`
+> **Troubleshooting.**
+>
+> An error may arise when some package version is not available yet/anymore for a given Python version.
+> In that case, we recommend first trying to use the same Python version as used by the authors *i.e.* Python 3.11.
 
-If you are not able to install/run Poetry without error, then you can create a new virtual environment with the classical `python` command:
+#### 2. Using a Docker Container and `requirements.txt`
+To run the same version as authors, a simple possibility is to use a docker container running the python version with jupyter.
+
+    sudo docker run -it --rm -p 8888:8888 -v .:/home/jovyan --user root -e GRANT_SUDO=yes jupyter/base-notebook:x86_64-python-3.11.5
+
+**Note.**
+The `--user root -e GRANT_SUDO=yes` part of the command is required to install texlive package.
+
+Clicking on the link shown in the terminal opens a jupyterlab webpage. Then, opening a terminal from this interface, packages
+can be installed using the `requirements.txt` file which contains the precise versions of packages used by the authors.
+For plots, latex installation is also required (`texlive-latex-extra` package and its dependencies). 
+
+    pip install -r requirements.txt
+    sudo apt update && sudo apt install cm-super texlive-latex-extra
+
+> **Troubleshooting.**
+>
+> In case of troubles with the embedded terminal, an alternative is to use a notebook to execute this command.
+> To do so, the following content must be executed in a first cell:
+>
+>     %%bash
+>     sudo apt update
+>     DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC sudo apt install -y tzdata
+>
+> And the following content in a second cell:
+>
+>     %%bash
+>     sudo apt install -y cm-super texlive-latex-extra dvipng
+>     pip install -r requirements.txt
+
+
+> **Known issues.**
+>
+> In cases where everything runs correctly within the Docker environment, but an error still occurs when attempting to visualize the weights, it is recommended to comment out line 136 in the *cVAE_OSM_tools.py* file in $`\texttt{cvae\_osm\_utils}`$ module (`weights_visualization` function) to bypass the issue.
+Once the modification is made, restart the notebook to apply the changes.
+
+
+#### 3. Using Poetry without Provided `poetry.lock`
+If the previous solutions did not work or are not suitable, the next alternative is to use Poetry without `poetry.lock`.
+In that case, installed packages will have versions at least as high as the one used by authors with the same major version (first version digit). This provides a bit more flexibility while still maintaining a high probability of reproductibility.
+
+For this, the `poetry.lock` must be adapted to the current Python version.
+
+    poetry lock
+    poetry install
+
+First a new lockfile is computed, then packages are installed.
+Same commands as for <a href="#install-1">installation 1</a> can be used to activate the environment.
+
+#### 4. Using `requirements.txt`
+
+If you are not able to install/run Poetry and/or Docker container without error, then you can create a new virtual environment with the classical `python` command:
 
     python -m venv .venv
 
@@ -165,23 +221,21 @@ Then activate the environment and install the dependencies:
     source .venv/bin/activate
     pip install -r requirements.txt
 
-#### Using Dependency List
+> <u>Caution</u>: To avoid troubles, we recommend to use the same Python version as the one used by the authors, *i.e.* Python 3.11.  
 
-The packages required for running the notebooks are:
-  - tensorflow,
-  - scipy,
-  - numpy,
-  - scikit-learn,
-  - matplotlib,
-  - ipykernel.
+#### 5. Using Dependency List
 
-If none of the previous method is suited to your particular situation you can try to install these packages by the method of your choice and run the scripts.
+Ultimately, in case the Python version is too different from the one used by authors, some package may not be available with
+an acceptable version.
 
-For convenience, we provide the pip command below.
+In that later case the only solution to run the experiments is to install dependencies without taking care of the versions.
+It is recommended to create a virtual environment but one might install the corresponding packages at the system level if required.
 
-    pip install tensorflow scipy numpy scikit-learn matplotlib ipykernel
+    python3 -m venv .venv --prompt cVAE-prompt
+    source .venv/bin/activate
+    pip install tensorflow scipy numpy scikit-learn matplotlib ipykernel tqdm
 
-> Warning! The reproducibility of the results is then not guaranteed.
+> Warning! The reproducibility of the results is then not guaranteed at all.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -194,13 +248,13 @@ title={Optimal Dimensionality Reduction using Conditional Variational AutoEncode
 volume={2025},
 url={https://tches.iacr.org/index.php/TCHES/article/view/12214},
 DOI={10.46586/tches.v2025.i3.164-211},
-abstractNote={The benefits of using Deep Learning techniques to enhance side-channel attacks performances have been demonstrated over recent years. Most of the work carried out since then focuses on discriminative models. However, one of their major limitations is the lack of theoretical results. Indeed, this lack of theoretical results, especially concerning the choice of neural network architecture to consider or the loss to prioritize to build an optimal model, can be problematic for both attackers and evaluators. Recently, Zaid et al. addressed this problem by proposing a generative model that bridges conventional profiled attacks and deep learning techniques, thus providing a model that is both explicable and interpretable. Nevertheless the proposed model has several limitations. Indeed, the architecture is too complex, higher-order attacks cannot be mounted and desynchronization is not handled by this model. In this paper, we address the first limitation namely the architecture complexity, as without a simpler model, the other limitations cannot be treated properly. To do so, we propose a new generative model that relies on solid theoretical results. This model is based on conditional variational autoencoder and converges towards the optimal statistical model i.e. it performs an optimal attack. By building on and extending the state-of-the-art theoretical works on dimensionality reduction, we integrate into this neural network an optimal dimensionality reduction i.e. a dimensionality reduction that is achieved without any loss of information. This results in a gain of O(D), with D the dimension of traces, compared to Zaid et al. neural network in terms of architecture complexity, while at the same time enhancing the explainability and interpretability. In addition, we propose a new attack strategy based on our neural network, which reduces the attack complexity of generative models from O(N) to O(1), with N the number of generated traces. We validate all our theoretical results experimentally using extensive simulations and various publicly available datasets covering symmetric, asymmetric pre and post-quantum cryptography implementations.},
 number={3},
 journal={IACR Transactions on Cryptographic Hardware and Embedded Systems},
 author={Boussam, Sana and Carbone, Mathieu and Gérard, Benoît and Renault, Guénaël and Zaid, Gabriel},
 year={2025},
 month={Jun.},
-pages={164–211} }
+pages={164–211} 
+}
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
